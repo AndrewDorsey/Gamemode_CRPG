@@ -6,7 +6,7 @@
 //+---------------------------------------------+
 datablock fxDtsBrickData(LaborBrickData)
 {
-	category = "CRP";
+	category = "CRPG";
 	subCategory = "Terminals";
 	uiName = "Labor";
 	bricktype = "Terminal";

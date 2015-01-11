@@ -637,6 +637,16 @@ function ServerCmdAdd(%client, %data,  %amount, %target)
 			
 			CRPGData.data[%target.bl_id].Value["Explosive"] += %amount;
 		}
+		else if(%data $= "Bricks")
+		{
+			%amount = mfloor(%amount);
+			if(%amount <= 0)
+				return MessageClient(%client,'',"\c6Please enter a valid amount of \c3Bricks\c6 to add.");
+			MessageClient(%client,'',"\c6You added \c3"@ %amount @" Bricks\c6 to \c3"@ %target.name @"\c6.");
+			MessageClient(%target,'',"\c3"@ %client.name @"\c6 added you \c3"@ %amount @" Bricks\c6.");
+			
+			CRPGData.data[%target.bl_id].Value["Bricks"] += %amount;
+		}
 		else if(%data $= "Hunger")
 		{
 			if(CRPGData.data[%target.bl_id].Value["Hunger"] + %amount > 14)
