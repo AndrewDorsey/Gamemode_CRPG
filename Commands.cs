@@ -1041,12 +1041,24 @@ function serverCmdStats(%client)
 {
 	%data = CRPGData.data[%client.bl_id];
 	%hlevel = CRPGData.data[%client.bl_id].value["Hunger"];
-	messageClient(%client,'',"\c6[Stats for " @ %client.name @ "][Details][Cash: " @ %client.getCashString() @ "\c6][Money in Bank: " @ %data.value["Bank"] @ "][Hunger: " @ $CRPG::Hunger[mfloor(%hlevel)] @ "\c6]");
-	messageClient(%client,'',"\c6[Stats for " @ %client.name @ "][Details][Arrest Record: " @ YN(%data.Record) @ "][Job: " @ %data.value["JobID"].jobName @ "]");
-	messageClient(%client,'',"\c6[Stats for " @ %client.name @ "][Levels][Experience: " @ %data.value["Experience"] @ " ][Mining: " @ %data.value["MiningSkill"] @ "][Woodcutting: " @ %data.value["CuttingSkill"] @ "]");
-	messageClient(%client,'',"\c6[Stats for " @ %client.name @ "][Inventory][Iron Ore: " @ %data.value["Iron"] @ "][Silver Ore: " @ %data.value["Silver"] @ "][Platinum Ore: " @ %data.value["Platinum"] @ "]");
-	messageClient(%client,'',"\c6[Stats for " @ %client.name @ "][Inventory][Oak Wood: " @ %data.value["Oak"] @ "][Maple Wood: " @ %data.value["Maple"] @ "][Morning Wood: " @ %data.value["Morning"] @ "]");
 	
+	%line1 = "Cash:" SPC %client.getCashString();
+	%line2 = "Bank:" SPC %data.value["Bank"];
+	%line3 = "Hunger:" SPC $CRPG::Hunger[mfloor(%hlevel)];
+	%line4 = "Record:" SPC YN(%data.Record);
+	%line5 = "Job:" SPC %data.value["JobID"].jobName;
+	%line6 = "EXP:" SPC %data.value["Experience"];
+	%line7 = "Mining:" SPC %data.value["MiningSkill"];
+	%line8 = "Cutting:" SPC %data.value["CuttingSkill"];
+	%line9 = "Iron:" SPC %data.value["Iron"];
+	%line10 = "Silver:" SPC %data.value["Silver"];
+	%Line11 = "Platinum:" SPC %data.value["Platinum"];
+	%line12 = "Oak:" SPC %data.value["Oak"];
+	%line13 = "Maple:" SPC %data.value["Maple"];
+	%line14 = "Morning:" SPC %data.value["Morning"];
+	
+	%builtstats = "<just:left>" @ %line1 NL %line2 NL %line3 NL %line4 NL %line5 NL %line6 NL %line7 NL %line8 NL %line9 NL %line10 NL %line11 NL %line12 NL %line13 NL %line14;
+	commandToClient(%client,'messageBoxOK',"Stats for " @ %client.name, %builtstats);
 }
 
 function serverCmdCityStats(%client)
