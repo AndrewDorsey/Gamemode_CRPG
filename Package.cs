@@ -412,6 +412,7 @@ package CRPG
 		}
 		if(%data == SafeBrickData.getID())
 			%brick.handleSafeDestroy();
+	CRPGData.data(%group.client.bl_id).value["Bricks"] += 1;
 		parent::KillBrick(%brick);
 	}
 	function serverCmdmessageSent(%client, %text)
