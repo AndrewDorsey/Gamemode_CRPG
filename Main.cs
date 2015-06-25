@@ -560,26 +560,44 @@ function fxDTSBrick::handleBrickRemove(%brick, %data)
 }
 function CRPGLotTriggerData::onEnterTrigger(%this, %trigger, %obj)
 {
-	if(!%obj.client)
-		return;
+	parent::onEnterTrigger(%this, %trigger, %obj);
 	
-	%obj.client.CRPGLotBrick = %trigger.parent;
-	commandtoclient(%obj.client,'CRPGsetlotinfo',%obj.client.CRPGLotBrick.getDatablock().lottype, CRPGData.data[%trigger.parent.getgroup().bl_id].Value["Name"]);
-	%trigger.parent.onEnterLot(%obj.client);
-	%obj.client.isIdle = 0;
+	if(!isObject(%obj.client))
+	{
+		if(isObject(%obj.getControllingClient()))
+			%client = %obj.getControllingClient();
+		else
+			return;
+	}
+	else
+		%client = %obj.client;
+	
+	%trigger.parent.onEnterLot(%obj);
+	
+	%client.CRPGTrigger = %trigger;
+	%client.CRPGLotBrick = %trigger.parent;
+	
+	%client.SetInfo();
 }
+
 function CRPGLotTriggerData::onLeaveTrigger(%this, %trigger, %obj)
 {
-	if(!%obj.client)
-		return;
-	if(%obj.client.CRPGLotBrick == %trigger.parent)
+	if(!isObject(%obj.client))
 	{
-		%obj.client.CRPGLotBrick = 0;
-		commandtoclient(%obj.client,'CRPGsetlotinfo',"","");
+		if(isObject(%obj.getControllingClient()))
+			%client = %obj.getControllingClient();
+		else
+			return;
 	}
-	if(!%obj.client.CRPGLotBrick == %trigger.parent)
-		commandtoclient(%obj.client,'CRPGsetlotinfo',%obj.client.CRPGLotBrick.getDatablock().lottype, CRPGData.data[%trigger.parent.getGroup().bl_id].Value["Name"]);
-	%trigger.parent.onEnterLot(%obj.client);
+	else
+		%client = %obj.client;
+	
+	%trigger.parent.onLeaveLot(%obj);
+	
+	%client.CRPGTrigger = "";
+	%client.CRPGLotBrick = "";
+	
+	%client.SetInfo();
 }
 function CRPGInputTriggerData::onEnterTrigger(%this, %trigger, %obj)
 {
@@ -819,33 +837,6 @@ function DoNightEvents(%minute)
 	}
 }
 
-function CityRPGInputTriggerData::onEnterTrigger(%this, %trigger, %obj)
-{
-	if(!isObject(%obj.client))
-	{
-		return;
-	}
-	
-	%obj.client.CityRPGTrigger = %trigger;
-	
-	%trigger.parent.getDatablock().parseData(%trigger.parent, %obj.client, true, "");
-}
-
-function CityRPGInputTriggerData::onLeaveTrigger(%this, %trigger, %obj, %a)
-{
-	if(!isObject(%obj.client))
-	{
-		return;
-	}
-	
-	if(%obj.client.CityRPGTrigger == %trigger)
-	{
-		%trigger.parent.getDatablock().parseData(%trigger.parent, %obj.client, false, "");
-		
-		%obj.client.CityRPGTrigger = "";
-	}
-}
-
 //======================================================
 //Old School No-GUI Stats Display <3 system by Dionysus
 //======================================================
@@ -931,6 +922,20 @@ function gameConnection::setGameBottomPrint(%client)
 		%client.CRPGPrint = %client.CRPGPrint @ %mainFont;
 	}
 	
+	if(isObject(%client.CRPGLotBrick)) 
+	{
+		%type = client.CRPLotBrick.getDatablock().lottype;
+		%own = getBrickGroupFromObject(%client.CRPGLotBrick).name;
+		if(%type $= "Residential")
+			%client.CRPGPrint = %client.CRPGPrint SPC "<just:right>\c3" @ %own;
+			else if(%type $= "Commercial")
+			%client.CRPGPrint = %client.CRPGPrint SPC "<just:right>\c1" @ %own;
+			else if(%type $= "Industrial")
+			%client.CRPGPrint = %client.CRPGPrint SPC "<just:right>\c0" @ %own;
+			else
+			%client.CRPGPrint = %client.CRPGPrint SPC "<just:right>\c6" @ %own;
+	}
+		
 	commandToClient(%client, 'bottomPrint', %client.CRPGPrint, 0, true);
 		
 	return %client.CRPGPrint;
@@ -948,5 +953,6 @@ function gameConnection::setInfo(%client)
 		%client.player.setShapeNameDistance(24);
 		
 		%client.setGameBottomPrint();
+		
 	}
 }
