@@ -863,6 +863,20 @@ function gameConnection::getCashString(%client)
 	return %temp;
 }
 
+function gameConnection::getBrickString(%client)
+{
+	%Bricks = CRPGData.data[%client.bl_id].valueBricks;
+	if(CRPGData.Data[%client.bl_id].valueBricks >= 0)
+	{
+		if(%Bricks >= 2) %temp = %Bricks @ " Bricks.";
+		else if(%Bricks == 1) %temp = %Bricks @ " Brick.";
+		else %temp = "\c0No bricks.";
+	}
+	else
+		%temp = "\c0Error.";
+	return %temp;
+}
+
 function gameConnection::getJobString(%client)
 {
 	%job = CRPGData.Data[%client.bl_id].valueJobID.JobName;
@@ -901,6 +915,9 @@ function gameConnection::setGameBottomPrint(%client)
 	
 	%client.CRPGPrint = %client.CRPGPrint SPC "\c6| " @ %client.getJobString();
 	
+	%bricks = CRPGData.data[%client.bl_id].value["Bricks"];
+	%client.CRPGPrint = %client.CRPGPrint SPC "\c6| " @ %client.getBrickString();
+	
 	%hlevel = CRPGData.data[%client.bl_id].value["Hunger"];
 	%client.CRPGPrint = %client.CRPGPrint SPC "\c6| " @ $CRPG::Hunger[mfloor(%hlevel)] @ ".";
 	
@@ -924,7 +941,7 @@ function gameConnection::setGameBottomPrint(%client)
 	
 	if(isObject(%client.CRPGLotBrick)) 
 	{
-		%type = client.CRPLotBrick.getDatablock().lottype;
+		%type = %client.CRPLotBrick.getDatablock().lottype;
 		%own = getBrickGroupFromObject(%client.CRPGLotBrick).name;
 		if(%type $= "Residential")
 			%client.CRPGPrint = %client.CRPGPrint SPC "<just:right>\c3" @ %own;

@@ -471,6 +471,16 @@ function ServerCmdSet(%client, %data, %amount, %target)
 			
 			CRPGData.data[%target.bl_id].Value["Explosive"] = %amount;
 		}
+		else if(%data $= "Bricks")
+		{
+			%amount = mfloor(%amount);
+			if(%amount < 0)
+				return MessageClient(%client,'',"\c6Please enter a valid amount of \c3Bricks\c6 to set.");
+			MessageClient(%client,'',"\c6You set the \c3Bricks\c6 of \c3"@ %target.name @"\c6 to \c3"@ %amount @"\c6.");
+			MessageClient(%target,'',"\c3"@ %client.name @"\c6 set your \c3Bricks\c6 to \c3"@ %amount @"\c6.");
+			
+			CRPGData.data[%target.bl_id].Value["Bricks"] = %amount;
+		}
 		else if(%data $= "Hunger")
 		{
 			if(%amount < 0 || %amount > 14)
@@ -1056,8 +1066,9 @@ function serverCmdStats(%client)
 	%line12 = "Oak:" SPC %data.value["Oak"];
 	%line13 = "Maple:" SPC %data.value["Maple"];
 	%line14 = "Morning:" SPC %data.value["Morning"];
+	%line15 = "Bricks:" SPC %data.value["Bricks"];
 	
-	%builtstats = "<just:left>" @ %line1 NL %line2 NL %line3 NL %line4 NL %line5 NL %line6 NL %line7 NL %line8 NL %line9 NL %line10 NL %line11 NL %line12 NL %line13 NL %line14;
+	%builtstats = "<just:left>" @ %line1 NL %line2 NL %line3 NL %line4 NL %line5 NL %line6 NL %line7 NL %line8 NL %line9 NL %line10 NL %line11 NL %line12 NL %line13 NL %line14 NL %line15;
 	commandToClient(%client,'messageBoxOK',"Stats for " @ %client.name, %builtstats);
 }
 

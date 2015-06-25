@@ -263,7 +263,6 @@ package CRPG
 					if(CRPGData.data[%group.bl_id].Value["Bricks"] && %data.category !$= "CRPG" && %data.subCategory !$= "Interactive" && $CRPG::Pref::BrickLumber)
 					{
 						CRPGData.data[%group.bl_id].Value["Bricks"]--;
-						commandtoclient(%group.client,'bottomprint',"\c6You have \c3"@ CRPGData.data[%group.bl_id].Value["Bricks"] @"\c6 bricks.",2);
 					}
 					if(%data.price)
 					{

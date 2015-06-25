@@ -434,8 +434,6 @@ exec("./Bricks/Terminals/Labor.cs");
 exec("./Bricks/Terminals/Drug.cs");
 exec("./Bricks/Terminals/Safe.cs");
 exec("./Bricks/Terminals/ATM.cs");
-exec("./Bricks/Terminals/MatPickup.cs");
-exec("./Bricks/Terminals/Depot.cs");
 
 exec("./Bricks/Resources/Lumber.cs");
 exec("./Bricks/Resources/Ore.cs");
