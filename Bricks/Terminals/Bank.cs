@@ -10,6 +10,8 @@ datablock fxDtsBrickData(BankBrickData)
 	subCategory = "Terminals";
 	uiName = "Bank";
 	bricktype = "Terminal";
+	
+	brickFile   = "Add-ons/Gamemode_CRPG/Shapes/Bricks/TerminalRed.blb";
 
 	triggerDatablock = CRPGInputTriggerData;
 	triggerSize = "8 9 6";
@@ -20,46 +22,6 @@ datablock fxDtsBrickData(BankBrickData)
 	brickSizeX = 2;
 	brickSizeY = 3;
 	brickSizeZ = 12;
-	
-	isProp = 1;
-	
-	brickRender = 0;
-	brickCollide = 1;
-	brickRaycast = 1;
-	
-	spawnModel = "ATMShape";
-	modelOffset = "0 0 0";
-	modelScale = "1 1 1";
-	
-	colorCount = 7;
-	
-	colorGroup[0] = "Red";
-		colorMode[0] = "Fix";
-		colorShift[0] = "1 0 0 1";
-	
-	colorGroup[1] = "Green";
-		colorMode[1] = "Fix";
-		colorShift[1]= "0 1 0 1";
-
-	colorGroup[2] = "White";
-		colorMode[2] = "Fix";
-		colorShift[2] = "1 1 1 1";
-	
-	colorGroup[3] = "Black";
-		colorMode[3] = "Fix";
-		colorShift[3]= "0 0 0 1";
-
-	colorGroup[4] = "Orange";
-		colorMode[4] = "Fix";
-		colorShift[4] = "1 0.5 0 1";
-	
-	colorGroup[5] = "Light Gray";
-		colorMode[5] = "Fix";
-		colorShift[5]= "0.8 0.8 0.8 1";
-
-	colorGroup[6] = "Gray";
-		colorMode[6] = "Fix";
-		colorShift[6] = "0.5 0.5 0.5 1";
 };
 
 function BankBrickData::parseData(%this, %brick, %client, %triggerStatus, %text)

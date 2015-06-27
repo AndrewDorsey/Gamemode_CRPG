@@ -226,6 +226,22 @@ package CRPG
 		Parent::onPlant(%brick);
 		if(%brick.isPlanted)
 		{
+			if(%brick.getDatablock().bricktype $= "Resource")
+			{
+				%num = %brick.getDatablock().CRPG_gives;
+				if(%num == 1)
+					%brick.setColor(6);
+				else if(%num == 2)
+					%brick.setColor(4);	
+				else if(%num == 3)
+					%brick.setColor(32);	
+				else if(%num == 4)
+					%brick.setColor(8);	
+				else if(%num == 5)
+					%brick.setColor(12);	
+				else if(%num == 6)
+					%brick.setColor(24);	
+			}
 			%data = %brick.getdatablock();
 			%group = %brick.getgroup();
 		

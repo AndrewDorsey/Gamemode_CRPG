@@ -1077,3 +1077,28 @@ function serverCmdCityStats(%client)
 	messageClient(%client,'',"\c6The city currently has the following resources:");
 	messageClient(%client,'',"\c6" @ $CRPG::Data::Materials @ " materials in the treasury, and " @ $CRPG::Data::Money @ " dollars in the treasury.");
 }
+
+function serverCmdBuyBricks(%client, %amount)
+{
+	if(CRPGData.data[%client.bl_id].value["Bricks"] <=9999)
+	{	
+		if(%amount $= "")
+			return MessageClient(%client,'',"\c6You must enter an amount of bricks to buy. One brick currently costs $3.");
+		if(%amount+CRPGData.data[%client.bl_id].value["Bricks"]>9999)
+			return MessageClient(%client,'',"\c6You can't have more than 9,999 bricks at one time. Sorry.");
+		if(%amount <= 0)
+			return MessageClient(%client,'',"\c6You must enter a valid amount of bricks.");
+		if(%amount*3>CRPGData.data[%client.bl_id].value["Money"])
+			return MessageClient(%client,'',"\c6You don't have enough money.");
+		if(%amount==666)
+			return MessageClient(%client,'',"\c6fuck off.");
+		MessageClient(%client,'',"\c6You have bought \c3"@ %amount @"\c6 bricks for \c3"@ %amount*3 @"\c6.");
+		CRPGData.data[%client.bl_id].value["Bricks"] += %amount;
+		CRPGData.data[%client.bl_id].value["Money"] -= %amount*3;
+	}
+}
+
+		
+		
+		
+		

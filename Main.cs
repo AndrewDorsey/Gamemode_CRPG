@@ -779,11 +779,11 @@ function AxeProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal)
 					CRPGData.data[%obj.client.bl_id].value["Experience"] += 1;
 			}
 			centerPrint(%obj.client,"\c6You cut the \c3" @ %col.dataBlock.uiName @ "\c6 tree down.",3);
-			if(%col.dataBlock.CRPG_gives == 1)
+			if(%col.dataBlock.CRPG_gives == 4)
 				CRPGData.data[%obj.client.bl_id].value["Oak"]++;
-			else if(%col.dataBlock.CRPG_gives == 2)
+			else if(%col.dataBlock.CRPG_gives == 5)
 				CRPGData.data[%obj.client.bl_id].value["Maple"]++;
-			else if(%col.dataBlock.CRPG_gives == 3)
+			else if(%col.dataBlock.CRPG_gives == 6)
 				CRPGData.data[%obj.client.bl_id].value["Morning"]++;
 		}
 		else

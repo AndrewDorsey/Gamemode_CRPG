@@ -11,6 +11,8 @@ datablock fxDtsBrickData(PoliceBrickData)
 	uiName = "Police";
 	bricktype = "Terminal";
 	
+	brickFile   = "Add-ons/Gamemode_CRPG/Shapes/Bricks/TerminalBlue.blb";
+	
 	triggerDatablock = CRPGInputTriggerData;
 	triggerSize = "7 10 4";
 	trigger = 0;
@@ -20,26 +22,6 @@ datablock fxDtsBrickData(PoliceBrickData)
 	brickSizeX = 1;
 	brickSizeY = 4;
 	brickSizeZ = 8;
-	
-	isProp = 1;
-	
-	brickRender = 0;
-	brickCollide = 1;
-	brickRaycast = 1;
-	
-	spawnModel = "MoniterShape";
-	modelOffset = "0 0 0";
-	modelScale = "1 1 1";
-	
-	colorCount = 2;
-	
-	colorGroup[0] = "Gray";
-		colorMode[0] = "Fix";
-		colorShift[0] = "0.5 0.5 0.5 1";
-	
-	colorGroup[1] = "Cyan";
-		colorMode[1] = "Fix";
-		colorShift[1]= "0 0 1 1";
 };
 function PoliceBrickData::parseData(%this, %brick, %client, %triggerStatus, %text)
 {

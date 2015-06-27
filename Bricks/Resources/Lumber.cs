@@ -9,7 +9,7 @@ datablock fxDTSBrickData(OakTreeData : brickPineTreeData)
 	
 	CRPG_RequiredLevel = "0";
 	CRPG_isTree = 1;
-	CRPG_gives = "Oak";
+	CRPG_gives = 4;
 	CRPG_life = 15;
 	CRPG_exp = 0.38;
 };
@@ -25,7 +25,7 @@ datablock fxDTSBrickData(MapleTreeData : brickPineTreeData)
 	
 	CRPG_RequiredLevel = "10";
 	CRPG_isTree = 1;
-	CRPG_gives = "Maple";
+	CRPG_gives = 5;
 	CRPG_life = 30;
 	CRPG_exp = 1.55;
 };
@@ -41,7 +41,7 @@ datablock fxDTSBrickData(MorningTreeData : brickPineTreeData)
 	
 	CRPG_RequiredLevel = "20";
 	CRPG_isTree = 1;
-	CRPG_gives = "Morning";
+	CRPG_gives = 6;
 	CRPG_life = 60;
 	CRPG_exp = 2.00;
 };

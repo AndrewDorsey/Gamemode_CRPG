@@ -10,6 +10,8 @@ datablock fxDtsBrickData(SafeBrickData)
 	subCategory = "Player Bricks";
 	uiName = "Safe";
 	bricktype = "Terminal";
+	
+	brickFile   = "Add-ons/Gamemode_CRPG/Shapes/Bricks/Safe.blb";
 
 	triggerDatablock = CRPGInputTriggerData;
 	triggerSize = "10 10 6";
@@ -20,29 +22,6 @@ datablock fxDtsBrickData(SafeBrickData)
 	brickSizeZ = 10;
 	
 	price = "5000";
-	isProp = 1;
-	
-	brickRender = 0;
-	brickCollide = 1;
-	brickRaycast = 1;
-	
-	spawnModel = "SafeShape";
-	modelOffset = "0 0 0";
-	modelScale = "1 1 1";
-	
-	colorCount = 3;
-	
-	colorGroup[0] = "Dark Gray";
-		colorMode[0] = "Fix";
-		colorShift[0] = "0.4 0.4 0.4 1";
-	
-	colorGroup[1] = "Gray";
-		colorMode[1] = "Fix";
-		colorShift[1]= "0.6 0.6 0.6 1";
-
-	colorGroup[2] = "Light Gray";
-		colorMode[2] = "Fix";
-		colorShift[2]= "0.8 0.8 0.8 1";
 };
 function SafeBrickData::parseData(%this, %brick, %client, %triggerStatus, %text)
 {
