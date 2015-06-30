@@ -14,7 +14,7 @@ exec("./Saving.cs");
 exec("./Package.cs");
 exec("./Events.cs");
 exec("./Commands.cs");
-exec("./HUD.cs");
+
 
 echo("   Initializing CRPG Bricks");
 exec("./Bricks.cs");
@@ -26,10 +26,10 @@ Build();
 echo("   Initializing CRPG Items");
 exec("./Items/Baton.cs");
 exec("./Items/LimitedBaton.cs");
-exec("./Items/Handtazer.cs");
+exec("./Items/Handtaser.cs");
 exec("./Items/Pickaxe.cs");
 exec("./Items/LumberjackAxe.cs");
-//exec("./Items/Jackhammer.cs");
+exec("./Items/Taser.cs");
 //exec("./Items/Chainsaw.cs");
 exec("./Items/Droppable.cs");
 

@@ -46,6 +46,7 @@
 	$CRPG::Pref::Demerits::ReduceRate = "20";
 	$CRPG::Pref::Demerits::DCP = "10";
 	$CRPG::Pref::Demerits::BaE = "50";
+	$CRPG::Pref::Demerits::TasingBros = "75";
 	$CRPG::Pref::Price::Pardon = "300";
 	$CRPG::Pref::Price::ClearRecord = "5000";
 	$CRPG::Pref::Price::Cellphone = "200";

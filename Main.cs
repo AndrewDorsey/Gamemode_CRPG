@@ -5,6 +5,34 @@
 //| CRPG functions.			 	|
 //+---------------------------------------------+
 $CRPG::Pref::MaxTools = "6";
+datablock PlayerData(PlayerFrozenArmor : PlayerStandardArmor)
+{
+	runForce = 0;
+	maxForwardSpeed = 0;
+	maxBackwardSpeed = 0;
+	maxSideSpeed = 0;
+	maxForwardCrouchSpeed = 0;
+	maxBackwardCrouchSpeed = 0;
+	maxSideCrouchSpeed = 0;
+
+	jumpForce = 0;
+	jumpEnergyDrain = 0;
+	minJumpEnergy = 0;
+	canJet = 0;
+	jetEnergyDrain = 0;
+	minJetEnergy = 0;
+
+	runSurfaceAngle  = 0;
+	jumpSurfaceAngle = 0;
+
+	uiName = "";
+};
+
+function PlayerFrozenArmor::onTrigger(%this,%player,%slot,%state)
+{
+	return;
+}
+
 datablock PlayerData(PlayerCRPG : PlayerStandardArmor)
 {
 	canJet = 0;
@@ -964,12 +992,22 @@ function gameConnection::setInfo(%client)
 	CRPGData.Data[%client.bl_id].value["Name"] = %client.name;
 	
 	if(isObject(%client.player))
-	{		
-		%client.player.setShapeName("foobar");
-		%client.player.setShapeNameColor("foobar");
-		%client.player.setShapeNameDistance(24);
-		
-		%client.setGameBottomPrint();
-		
+	{	
+		if(!%client.hasClient)
+		{
+			%client.player.setShapeName("foobar");
+			%client.player.setShapeNameColor("foobar");
+			%client.player.setShapeNameDistance(24);
+			
+			%client.setGameBottomPrint();
+		}
+		else
+		{
+			commandtoclient(%client, 'CRPGSetMoney',%client.getCashString());
+			commandtoclient(%client, 'CRPGSetDems',CRPGData.Data[%client.bl_id].value["Demerits"]);
+			commandtoclient(%client, 'CRPGSetBricks',%client.getBrickString);
+			commandtoclient(%client, 'CRPGSetHunger',CRPGData.Data[%client.bl_id].value["Hunger"]);
+		}
 	}
 }
+

@@ -8,18 +8,6 @@ function servercmdCRPGPing(%client)
 {
 	%client.hasClient = 1;
 }
-
-//function serverCmdSetInfo(%client)
-//{
-//	echo("Sending " @ %client.name @ " CRPG Information.");
-//	commandtoclient(%client,'CRPGsetMoney',CRPGData.Data[%client.bl_id].Value["Money"]);
-//	commandtoclient(%target,'CRPGsetWanted',CRPGData.data[%target.bl_id].Value["Demerits"]);
-//	commandtoclient(%client,'CRPGsetJob', 0, CRPGData.data[%client.bl_id].Value["Student"], CRPGData.Data[%client.bl_id].Value["JobID"].JobName);
-//	commandtoclient(%target,'CRPGsetHunger',CRPGData.data[%target.bl_id].Value["Hunger"]);
-//	commandtoclient(%client,'CRPGsetStats',%data.ValueBank,%data.ValueRecord,%data.ValueBounty,%data.ValueExperience,%data.ValueEducation,%data.ValueLumber,%data.ValueOre,%data.Value9mm,%data.ValueRifle,%data.ValueShell,%data.ValueExplosive,%data.ValueCoke,%data.ValueWeed);
-////	commandToClient(%client,'updateText',%data.value["JobID"].jobName,%data.valueMoney,%data.valueHunger,%data.valueWanted,%client.dataJailData);
-//}
-
 function serverCmdRequestCRPGJobs(%client)
 {
 	if(!%client.hasJobs)
@@ -37,6 +25,7 @@ function serverCmdRequestCRPGStats(%client)
 	%data = CRPGData.data[%client.bl_id];
 	commandtoclient(%client,'CRPGSetStats',%data.ValueDemerits,%data.valueHunger,%data.Value["JobID"].Income,%data.Value["JobID"].JobName,%data.valueMoney,%data.ValueBank,%data.ValueRecord,%data.ValueBounty,%data.ValueExperience,%data.ValueEducation,%data.ValueLumber,%data.ValueOre);
 }
+
 function ServerCmdHelp(%client, %section)
 {
 	if(%client.lastCommand $= "" || $Sim::Time - %client.lastCommand > 2)
@@ -1044,7 +1033,8 @@ function serverCmdNope(%client)
 
 function serverCmdRefresh(%client)
 {
-	%client.setInfo();
+	if(!%client.hasClient)
+		%client.setInfo();
 }
 
 function serverCmdStats(%client)

@@ -156,13 +156,13 @@ package CRPG
 				canPickup = true;
 				value = CRPGData.data[%client.bl_id].Value["Money"];
 				position = %position;
+				colorShiftColor = "0 0.6 0 1";
 			};
 			%cash.setVelocity(getrandom(-5,5) SPC getrandom(-5,5) SPC "5");
 			%cash.setShapeName("$" @ %cash.value);
 			
 			CRPGData.data[%client.bl_id].Value["Money"] = 0;
 			commandtoclient(%client,'CRPGSetMoney',0);
-			%client.setGameBottomPrint();
 		}
 		if(CRPGData.data[%client.bl_id].Value["Lumber"])
 		{
@@ -573,11 +573,11 @@ package CRPG
 		%target = containerRayCast(%player.getEyePoint(),vectorAdd(vectorScale(vectorNormalize(%player.getEyeVector()),3),%player.getEyePoint()),$typeMasks::playerObjectType,%player).client;
 		if(CRPGData.data[%player.Client.bl_id].Value["JailData"] || !%target)
 			return;
-		if(CRPGData.data[%player.Client.bl_id].Value["JobID"].Pickpocket)
+		if(CRPGData.data[%player.Client.bl_id].Value["JobID"].Pickpocket==1)
 		{
 			if(isobject(%player.client.CRPGlotBrick))
 				%admin = %player.client.CRPGlotBrick.getDatablock().AdminOnly;
-			if(%player.crouch && !%admin && CRPGData.data[%target.bl_id].Value["Money"] && !CRPGData.data[%target.bl_id].Value["JobID"].Pickpocket)
+			if(%player.crouch && !%admin && CRPGData.data[%target.bl_id].Value["Money"] && CRPGData.data[%target.bl_id].Value["JobID"].Pickpocket==0)
 			{
 				%startmoney = CRPGData.data[%target.bl_id].Value["Money"];
 				if(CRPGData.data[%target.bl_id].Value["Money"] >= CRPGData.data[%player.Client.bl_id].Value["JobID"].Pickpocket)
@@ -642,6 +642,16 @@ package CRPG
 				messageclient(%player.Client,'',"\c3"@ %target.name @"\c6 has a \c3$"@ CRPGData.data[%target.bl_id].Value["Bounty"] @"\c6 bounty.");
 			else
 				messageclient(%player.Client,'',"\c3"@ %target.name @"\c6 currently has no bounty.");
+		}
+		else if(CRPGData.data[%player.Client.bl_id].Value["JobID"].Heal)
+		{
+			if(%target.player.health < 100)
+			{
+				%target.player.health++;
+				messageclient(%player.Client,'',"\c3"@ %target.name @"\c6 has a \c3$"@ CRPGData.data[%target.bl_id].Value["Bounty"] @"\c6 bounty.");
+			}
+			else
+				messageclient(%player.Client,'',"\c3"@ %target.name @"\c6 isn't hurt.");
 		}
 	}
 	function serverCmdLight(%client)
